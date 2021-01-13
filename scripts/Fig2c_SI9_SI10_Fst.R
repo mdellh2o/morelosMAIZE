@@ -32,7 +32,7 @@ save(WC84Fst,file="WC84Fst.RData")
 
 #Discard lower triangle and rename populations for graph (for clarity, horizontal "-Ex situ-" and "-In situ-" labels were added maually using an image editor)
 y<-as.matrix(WC84Fst)
-y[lower.tri(y)] <- 0
+y[lower.tri(y)] <- NA
 colnames(y)<-gsub("IN","In ",gsub("EX","Ex ",gsub("ORE","",colnames(y))))
 rownames(y)<-gsub("IN","In ",gsub("EX","Ex ",gsub("ORE","",rownames(y))))
 y<-melt(y)
@@ -43,7 +43,7 @@ print(ggplot(y, aes(x=Var1, y=Var2, fill=value))+
         geom_tile() +
         geom_vline(xintercept = 13.5) + geom_hline(yintercept = 13.5) +
         ggtitle("Pairwise Fst") + labs(fill = "Fst") +
-        scale_fill_gradient(low = "white", high = "black") +
+        scale_fill_gradient(low = "yellow", high = "red",na.value = "white") +
         theme_classic(base_size = 20)+
         theme(axis.title.x = element_blank(),
               axis.title.y = element_blank(), axis.text.x = element_text(angle = 90)))
